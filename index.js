@@ -5,6 +5,8 @@
 const url = "https://api.pexels.com/v1/search?query=kittens";
 const url2 = "https://api.pexels.com/v1/search?query=tiger";
 const cardimg = document.querySelectorAll(".card img");
+const p = document.querySelectorAll("small");
+const btnview = document.querySelectorAll(".view");
 const getevents = function (app) {
   fetch(app, {
     headers: {
@@ -25,6 +27,15 @@ const getevents = function (app) {
 
       cardimg.forEach((immagine, conta) => {
         immagine.src = data[conta].src.original;
+      });
+      p.forEach((element, conta) => {
+        element.textContent = data[conta].id;
+      });
+      //bottone view
+      btnview.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+          window.location.href = `./details.html?photoID=${data[index].id}`;
+        });
       });
     })
     .catch((error) => {
